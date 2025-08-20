@@ -36,6 +36,7 @@ const userSignUp = async (req, res) => {
   try {
     const user = new Patient({ firstName, lastName, nic, email, password });
     await user.save();
+  
     console.log("Patient Signup Success");
     res.status(200).send();
   } catch (err) {
@@ -96,42 +97,39 @@ const userSignIn = async (req, res) => {
 };
 
 const doctorSignUp = async (req, res) => {
-  const {
-    firstName,
-    lastName,
-    nic,
-    email,
-    password,
-    medicalId,
-    medicalIdVerify,
-  } = req.body;
+  const { firstName, lastName, nic, email, password, medicalId, medicalIdVerify } = req.body;
 
   const existingDoctor = await Doctor.findOne({ email });
   if (existingDoctor) {
-    console.log("Email is in use");
-    return res.status(400).send({
-      error:
-        "Email is in use. Please use a diiferent email or login with the email",
-    });
+    return res.status(400).send({ error: "Email is in use." });
   }
 
   try {
-    const doctor = new Doctor({
-      firstName,
-      lastName,
-      nic,
-      email,
-      password,
-      medicalId,
-      medicalIdVerify,
-    });
+    const doctor = new Doctor({ firstName, lastName, nic, email, password, medicalId, medicalIdVerify });
     await doctor.save();
 
-    res.status(200).send("Success");
+    // Generate access and refresh tokens
+    const accessToken = await generateAccessToken({
+      _id: doctor._id,
+      roles: doctor.role,
+      fName: doctor.firstName,
+      lName: doctor.lastName,
+    });
+
+    const refreshToken = await generateRefreshToken({
+      _id: doctor._id,
+      roles: doctor.role,
+      fName: doctor.firstName,
+      lName: doctor.lastName,
+    });;
+    console.log(accessToken)
+
+    res.status(200).send({ accessToken, refreshToken, medicalIdVerify });
   } catch (err) {
     return res.status(400).send({ error: err.message });
   }
 };
+
 
 const doctorSignIn = async (req, res) => {
   const { email, password } = req.body;

@@ -8,6 +8,7 @@ import {
   Alert,
 } from "react-native";
 import { z } from "zod";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { baseUrl } from "../../../constants/constants";
 import api from "../../../Services/AuthService";
 
@@ -23,21 +24,18 @@ const DoctorRegister = ({ navigation }) => {
   const validateDoctorRegistration = z.object({
     firstName: z
       .string()
-      .min(1, "Enter correct name ")
-      .regex(/^[a-zA-Z ]*$/, {
-        message: "Cannot enter number or symbol for First name",
-      }),
+      .min(1, "Enter correct first name")
+      .regex(/^[a-zA-Z ]*$/, { message: "Cannot enter number or symbol" }),
     lastName: z
       .string()
       .min(1, { message: "Enter correct last name" })
-      .regex(/^[a-zA-Z ]*$/, {
-        message: "Cannot enter number or symbol for Last name",
-      }),
-    email: z.string().email({ message: " Enter correct Email address" }),
+      .regex(/^[a-zA-Z ]*$/, { message: "Cannot enter number or symbol" }),
+    email: z.string().email({ message: "Enter correct email address" }),
     nic: z.string().min(8, { message: "Enter correct NIC number" }),
   });
 
   const handleRegister = async () => {
+    // Check all fields
     if (
       !firstName ||
       !lastName ||
@@ -51,67 +49,70 @@ const DoctorRegister = ({ navigation }) => {
       return;
     }
 
-    
+    // Password length check
     if (password.length < 8) {
       Alert.alert("Error", "Password must be at least 8 characters long.");
       return;
     }
 
+    // Password match check
     if (password !== confirmPassword) {
       Alert.alert("Error", "Passwords do not match.");
       return;
     }
 
-    const data = {
-      firstName: firstName,
-      lastName: lastName,
-      nic: nic,
-      email: email,
-    };
+    // Zod validation
+    const data = { firstName, lastName, nic, email };
     const result = validateDoctorRegistration.safeParse(data);
+    if (!result.success) {
+      Alert.alert("Error", result.error.errors[0].message);
+      return;
+    }
 
     try {
-      if (!result.success) {
-        console.log(result.error.errors[0].message);
-        Alert.alert("Error", result.error.errors[0].message);
-        return;
-      }
-      api
-        .post(`${baseUrl}/doc/signup`, {
-          firstName,
-          lastName,
-          nic,
-          email,
-          password,
-          medicalId,
-          medicalIdVerify: false,
-        })
-        .then((response) => {
-          console.log("Response:", response);
-          setFirstName("");
-          setLastName("");
-          setNic("");
-          setEmail("");
-          setPassword("");
-          setConfirmPassword("");
-          setMedicalId("");
-          Alert.alert("Success", "Registration successful.", [
-            {
-              text: "OK",
-              onPress: () => navigation.navigate("DoctorLogin"), // Navigate back to login page
-            },
-          ]);
-        })
-        .catch((error) => {
-          console.log("Error registering1:", error.response.data.error);
+      const response = await api.post(`${baseUrl}/doc/signup`, {
+        firstName,
+        lastName,
+        nic,
+        email,
+        password,
+        medicalId,
+        medicalIdVerify: false,
+      });
 
-          Alert.alert("Error", error.response.data.error);
-        });
+      console.log("Response data:", response.data);
+
+const { accessToken, refreshToken, medicalIdVerify } = response.data;
+
+if (!accessToken) {
+  Alert.alert("Error", "Token not found. Registration failed.");
+  return;
+}
+
+      // Save tokens locally
+      await AsyncStorage.setItem("accessToken", accessToken);
+      await AsyncStorage.setItem("refreshToken", refreshToken);
+
+      // Clear form
+      setFirstName("");
+      setLastName("");
+      setNic("");
+      setEmail("");
+      setPassword("");
+      setConfirmPassword("");
+      setMedicalId("");
+
+      Alert.alert("Success", "Registration successful.", [
+        {
+          text: "OK",
+          onPress: () => navigation.navigate("DoctorLogin"),
+        },
+      ]);
     } catch (error) {
-      console.log("Error registering2:", error);
+      console.log("Error registering:", error.response?.data || error.message);
       Alert.alert(
         "Error",
-        "An error occurred while registering. Please try again."
+        error.response?.data?.error || "An error occurred during registration"
       );
     }
   };
@@ -119,7 +120,7 @@ const DoctorRegister = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Doctor Registration</Text>
-      <Text style={styles.titleSub}>Welcome to CareSync</Text>
+      <Text style={styles.titleSub}>Welcome to DocDesk</Text>
 
       <TextInput
         style={styles.input}
@@ -127,28 +128,24 @@ const DoctorRegister = ({ navigation }) => {
         value={firstName}
         onChangeText={setFirstName}
       />
-
       <TextInput
         style={styles.input}
         placeholder="Last Name"
         value={lastName}
         onChangeText={setLastName}
       />
-
       <TextInput
         style={styles.input}
         placeholder="NIC"
         value={nic}
         onChangeText={setNic}
       />
-
       <TextInput
         style={styles.input}
         placeholder="Email"
         value={email}
         onChangeText={setEmail}
       />
-
       <TextInput
         style={styles.input}
         placeholder="Password"
@@ -156,7 +153,6 @@ const DoctorRegister = ({ navigation }) => {
         onChangeText={setPassword}
         secureTextEntry
       />
-
       <TextInput
         style={styles.input}
         placeholder="Confirm Password"
@@ -164,7 +160,6 @@ const DoctorRegister = ({ navigation }) => {
         onChangeText={setConfirmPassword}
         secureTextEntry
       />
-
       <TextInput
         style={styles.input}
         placeholder="Medical ID"
