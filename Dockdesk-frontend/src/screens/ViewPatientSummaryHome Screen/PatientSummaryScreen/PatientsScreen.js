@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
-import { FlatList, View, ScrollView, Text } from "react-native";
+import { FlatList, View } from "react-native";
 import PatientGridTile from "../Components/PatientGridTile";
-// import Search from "../Components/Search";
 import CustomHeader from "../Components/CustomHeader";
 import api from "../../../Services/AuthService";
 import { baseUrl } from "../../../constants/constants";
@@ -11,6 +10,7 @@ function PatientsScreen({ navigation }) {
   const { user } = useAuthContext();
   const [patients, setPatients] = useState([]);
   const [filteredPatients, setFilteredPatients] = useState([]);
+  const [searchText, setSearchText] = useState("");
 
   useEffect(() => {
     fetchPatients();
@@ -27,7 +27,9 @@ function PatientsScreen({ navigation }) {
       console.log("Error fetching patients:", error);
     }
   };
-  const handleSearch = (filteredData) => {
+
+  const handleSearch = (filteredData, text) => {
+    setSearchText(text);
     setFilteredPatients(filteredData);
   };
 
@@ -48,7 +50,6 @@ function PatientsScreen({ navigation }) {
           profileImage={item.profileImage}
           onPress={presshandler}
         />
-        {/* export data to PatientGridTile page */}
       </View>
     );
   };
@@ -58,13 +59,18 @@ function PatientsScreen({ navigation }) {
       <CustomHeader patients={patients} onSearch={handleSearch} />
 
       <FlatList
-        data={filteredPatients.length > 0 ? filteredPatients : patients}
+        data={searchText ? filteredPatients : patients}
         keyExtractor={(item) => item._id}
         renderItem={renderCategoryItem}
         style={{ flex: 1 }}
+        ListEmptyComponent={
+          <View style={{ padding: 20 }}>
+            <Text>No patients found</Text>
+          </View>
+        }
       />
-      {/* Flatlist to display the patients */}
     </View>
   );
 }
+
 export default PatientsScreen;

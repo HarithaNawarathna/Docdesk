@@ -13,9 +13,7 @@ function Search({ patients, onSearch }) {
     if (text) {
       const textParts = text.toUpperCase().split(" ");
       const newData = patients.filter((item) => {
-        const itemData = `${item.firstName.toUpperCase()} ${item.lastName.toUpperCase()}`;
-        console.log("itemData", itemData);
-
+        const itemData = `${item.firstName.toUpperCase()} ${item.lastName.toUpperCase()} ${item.nic?.toUpperCase() ?? ""} ${item.email?.toUpperCase() ?? ""}`;
         return textParts.every((part) => itemData.includes(part));
       });
       setFilteredData(newData);
@@ -32,15 +30,17 @@ function Search({ patients, onSearch }) {
     <View style={styles.contain}>
       <TextInput
         value={input}
-        style={{ fontSize: 15, marginLeft: 10 }}
+        style={styles.input}  // ✅ use consistent styles
         placeholder="Search"
-        onChangeText={(text) => SearchFilter(text)}
+        placeholderTextColor="#999" // ✅ gray placeholder
+        onChangeText={SearchFilter}
       />
     </View>
   );
 }
 
 export default Search;
+
 const styles = StyleSheet.create({
   contain: {
     padding: 8,
@@ -51,5 +51,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 30,
     height: 37,
+  },
+  input: {
+    flex: 1,
+    fontSize: 15,
+    marginLeft: 10,
+    color: "#000", // ✅ ensures entered text is always visible
   },
 });
