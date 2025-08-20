@@ -233,15 +233,15 @@ const forgotPassword = async (req, res) => {
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: "manushadananjaya999@gmail.com",
-        pass: "tums mfyz lncy tmhk",
+        user: "haritharashmikanawarathna@gmail.com",
+        pass: "jupy bhwr lygn yvfe",
       },
     });
 
     console.log("email:", user.email);
 
     const mailOptions = {
-      from: "manushadananjaya999@gmail.com",
+      from: '"DocDesk Support" <support@docdesk.com>',
       to: user.email,
       subject: "Password Reset OTP",
       html: `
@@ -410,13 +410,13 @@ const resendOTP = async (req, res) => {
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: "manushadananjaya999@gmail.com",
-        pass: "tums mfyz lncy tmhk",
+        user: "haritharashmikanawarathna@gmail.com",
+        pass: "jupy bhwr lygn yvfe",
       },
     });
 
     const mailOptions = {
-      from: "manushadananjaya999@gmail.com",
+      from: '"DocDesk Support" <support@docdesk.com>',
       to: user.email,
       subject: "Password Reset OTP",
       html: `
@@ -467,13 +467,17 @@ const getOTP = async (req, res) => {
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: "manushadananjaya999@gmail.com",
-        pass: "tums mfyz lncy tmhk",
+        // user: "manushadananjaya999@gmail.com",
+        // pass: "tums mfyz lncy tmhk",
+
+        user: "haritharashmikanawarathna@gmail.com",
+        pass: "jupy bhwr lygn yvfe",
+
       },
     });
 
     const mailOptions = {
-      from: "manushadananjaya999@gmail.com",
+      from: '"DocDesk Support" <support@docdesk.com>',
       to: user.email,
       subject: "Registration OTP",
       html: `

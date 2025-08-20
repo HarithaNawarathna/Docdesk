@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
   background: {
     backgroundColor: "white",
     width: "100%",
-    height: "100%",
+    height: "90%",
     padding: 15,
   },
 
