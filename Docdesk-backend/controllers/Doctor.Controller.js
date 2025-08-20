@@ -139,22 +139,16 @@ const verifyDoctor = async (req, res) => {
 
 const uploadProfileImage = async (req, res) => {
   try {
-    // Validate doctor ID
-    const { id } = req.params;
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(400).json({ message: "Invalid doctor ID" });
-    }
+    console.log("req.file:", req.file);
 
-    // Handle file upload
     if (!req.file || !req.file.path) {
+      console.log("No file uploaded");
       return res.status(400).json({ message: "No file uploaded" });
     }
 
     const imageUrl = req.file.path;
-
-    // Update doctor's profile image
     const updatedDoctor = await DocModel.findByIdAndUpdate(
-      id,
+      req.params.id,
       { profileImage: imageUrl },
       { new: true }
     );
@@ -164,10 +158,11 @@ const uploadProfileImage = async (req, res) => {
       doctor: updatedDoctor,
     });
   } catch (error) {
-    console.error("Error uploading profile image:", error);
+    console.error("Full error:", error); // log full error object
     res.status(500).json({ message: "Error uploading profile image", error });
   }
 };
+
 
 const getPatientsWithAccess = async (req, res) => {
   const { id } = req.params;
