@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { FlatList, View } from "react-native";
+import { FlatList, View, Text } from "react-native";
 import PatientGridTile from "../Components/PatientGridTile";
 import CustomHeader from "../Components/CustomHeader";
 import api from "../../../Services/AuthService";
