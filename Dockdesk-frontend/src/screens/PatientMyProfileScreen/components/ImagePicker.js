@@ -6,7 +6,7 @@ import {
   StyleSheet,
   ActivityIndicator,
   Dimensions,
-} from "react-native";
+} from "react-native"; 
 import React, { useState, useEffect, useCallback } from "react";
 import { launchImageLibraryAsync } from "expo-image-picker";
 import api from "../../../Services/AuthService";

@@ -136,8 +136,10 @@ const DetailRow = ({
           break;
         }
       case "nic":
-        if (nic.trim() === "") {
-          Alert.alert("Error", "Please enter a valid NIC");
+        const nicRegex = /^(\d{9}[vVxX]|\d{12})$/;
+
+        if (!nicRegex.test(nic.trim())) {
+          Alert.alert("Error", "Please enter a valid NIC number");
           return;
         } else {
           updatedData = { nic: nic };
