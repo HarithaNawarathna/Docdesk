@@ -87,7 +87,9 @@ const PatientDashboard = ({ navigation }) => {
               source={require("../../../assets/icons/record-icon.jpg")}
               style={styles.dashboardImage}
             />
-            <Text style={styles.dashboardButtonText}>View Medical Records</Text>
+            <Text style={styles.dashboardButtonText}>
+              View Medical Records
+            </Text>
           </TouchableOpacity>
 
           <TouchableOpacity

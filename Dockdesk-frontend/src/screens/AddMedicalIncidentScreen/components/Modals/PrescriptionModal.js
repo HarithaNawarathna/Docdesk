@@ -50,14 +50,6 @@ const PrescriptionModal = ({ recordID, onClose }) => {
     <View style={styles.modalContainer}>
       <Text style={styles.modalText}>Add Prescription Details</Text>
       <View style={styles.contentContainer}>
-        {/* <View style={styles.inputcontainer}>
-          <Text style={styles.label}>Doctor ID:</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Enter the Doctor ID"
-            onChangeText={(text) => setDoctorID(text)}
-          />
-        </View> */}
 
         <View style={styles.inputcontainer}>
           <Text style={styles.label}>Doctor Name*</Text>
