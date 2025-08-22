@@ -245,7 +245,8 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 30,
+    marginTop: 50,
+    marginBottom: 60,
     paddingHorizontal: 15,
   },
   dashboardButton: {
