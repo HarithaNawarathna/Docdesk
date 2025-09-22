@@ -1,7 +1,7 @@
 import { Platform } from 'react-native';
 
 
-const base = Platform.OS === "android" ? "http://10.0.2.2" : "http://localhost";
+const base = Platform.OS === "android" ? "http://10.204.138.240" : "http://localhost";
 
 const port = 5000;
 
