@@ -113,11 +113,11 @@ const styles = StyleSheet.create({
     color: "#00567D",
     marginTop: 10,
   },
-  docimg: {
-    width: 150,
-    height: 150,
-    marginBottom: 20,
-  },
+  // docimg: {
+  //   width: 100,
+  //   height: 100,
+  //   marginBottom: 10,
+  // },
 });
 
 export default DoctorLogin;
