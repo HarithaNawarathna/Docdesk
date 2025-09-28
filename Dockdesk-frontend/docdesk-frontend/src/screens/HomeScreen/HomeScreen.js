@@ -27,7 +27,7 @@
 
 //   return (
 //     <View style={styles.container}>
-//       <Text style={styles.titleMain}>CareSync</Text>
+//       <Text style={styles.titleMain}>DocDesk</Text>
 //       <Image
 //         source={require("../../../assets/homelogo.png")}
 //         style={styles.logo}

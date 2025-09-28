@@ -1,6 +1,6 @@
 # DocDesk
 
-DocDesk (CareSync) is a comprehensive healthcare platform designed to modernize and organize medical processes, with a focus on respiratory diseases. The system digitizes patient records, facilitates efficient communication between doctors and patients, and enhances overall healthcare delivery for both patients and providers.
+DocDesk (DocDesk) is a comprehensive healthcare platform designed to modernize and organize medical processes, with a focus on respiratory diseases. The system digitizes patient records, facilitates efficient communication between doctors and patients, and enhances overall healthcare delivery for both patients and providers.
 
 ## Background
 

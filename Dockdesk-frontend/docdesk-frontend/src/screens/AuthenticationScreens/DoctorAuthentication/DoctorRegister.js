@@ -119,7 +119,7 @@ const DoctorRegister = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Doctor Registration</Text>
-      <Text style={styles.titleSub}>Welcome to CareSync</Text>
+      <Text style={styles.titleSub}>Welcome to DocDesk</Text>
 
       <TextInput
         style={styles.input}

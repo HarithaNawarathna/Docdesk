@@ -42,7 +42,7 @@ const PatientDashboard = ({ navigation }) => {
     <View style={styles.container}>
       <View style={styles.topPanel}>
         <View style={styles.mainbar}>
-          <Text style={styles.titleMain}>CareSync</Text>
+          <Text style={styles.titleMain}>DocDesk</Text>
           <TouchableOpacity
             style={styles.logOutButton}
             onPress={() => {

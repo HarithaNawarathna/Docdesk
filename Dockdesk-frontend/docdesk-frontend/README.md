@@ -1,4 +1,4 @@
-CareSync - A Medical Application focusing on respiratory diseases
+DocDesk - A Medical Application focusing on respiratory diseases
 
 
 Background:
@@ -10,15 +10,15 @@ Patients and doctors always wanted to increase efficiency and accuracy in their 
 
 Description:
 
-Project CareSync is a comprehensive healthcare system designed to modernize and organize medical processes. Its primary purpose is to digitize patient records, facilitate efficient communication between doctors and patients, and enhance overall healthcare delivery. The system features a user-friendly interface, ensuring seamless interactions for both patients and healthcare providers. 
-The project emphasizes real-time collaboration, quick data retrieval, and stringent security measures to protect sensitive patient information. Overall, CareSync represents a pivotal step towards leveraging technology for improved healthcare management. Key features include patient registration and login, medical report and prescription management, in-app medical tests, and administrator controls for user management.
+Project DocDesk is a comprehensive healthcare system designed to modernize and organize medical processes. Its primary purpose is to digitize patient records, facilitate efficient communication between doctors and patients, and enhance overall healthcare delivery. The system features a user-friendly interface, ensuring seamless interactions for both patients and healthcare providers. 
+The project emphasizes real-time collaboration, quick data retrieval, and stringent security measures to protect sensitive patient information. Overall, DocDesk represents a pivotal step towards leveraging technology for improved healthcare management. Key features include patient registration and login, medical report and prescription management, in-app medical tests, and administrator controls for user management.
 
 
 Installation:
 
-To install and set up CareSync locally, follow these steps:
+To install and set up DocDesk locally, follow these steps:
 Ensure you have Node.js installed on your system.
-Clone the CareSync repository from GitHub.
+Clone the DocDesk repository from GitHub.
 Navigate to the project directory in your terminal.
 Run npm install to install project dependencies.
 Set up environment variables in a .env file, including the database connection string.
@@ -27,7 +27,7 @@ Start the server by running npm start.
 
 Usage:
 
-Using CareSync is simple:
+Using DocDesk is simple:
 Register or log in as a patient, doctor, or administrator.
 Perform actions based on your role, such as entering medical reports, adding prescriptions, or approving doctor registrations.
 Configure any necessary environment variables and ensure proper authentication.
